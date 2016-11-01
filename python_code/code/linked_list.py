@@ -74,6 +74,10 @@ class LinkedList:
         else:
             self.insertAfterNode(node, self.tail) 
 
+    # empalce element to the back of the list
+    def emplaceBack(self, data):
+        self.pushBack(Node(data))
+
     # insert element after a specific element
     def insertAfterNode(self, new_node, old_node):
         self.size += 1
@@ -99,21 +103,21 @@ class LinkedList:
             self.head = new_node
 
     # insert element at the position pos
-    def insertAtPos(self, node, pos):
+    def insertAt(self, node, pos):
         if (self.empty()):
             self.init(node)
         else:
             if (pos <= 0):
-                self.insertBeforeNode(self, node, self.head)
+                self.insertBeforeNode(node, self.head)
             else:
-                self.insertAfterNode(self, node, self.nodeAt(pos-1))
+                self.insertAfterNode(node, self.nodeAt(pos-1))
 
     # deletes element at posisiton pos
-    def deleteAtPos(self, pos):
-        self.delete(self.nodeAt(pos))
+    def deleteAt(self, pos):
+        self.deleteNode(self.nodeAt(pos))
 
     # delete element
-    def delete(self, node):
+    def deleteNode(self, node):
         if (node is None):
             return
 
@@ -127,12 +131,13 @@ class LinkedList:
         node.prev = None
         node.next = None
 
-        size -= 1
+        self.size -= 1
+
+        if (self.size == 0):
+            self.head = None
+            self.tail = None
 
     # delete all the elements from the list
     def clear(self):
         for i in range(self.size):
             self.delete(self.head)
-
-        self.head = None
-        self.tail = None
