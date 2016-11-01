@@ -1,15 +1,29 @@
+import linked_list
+
+Node = linked_list.Node
+LinkedList = linked_list.LinkedList
+
 class Edge():
-    def __init__(self):
-        pass
+    # Create a new edge from start_vertex to end_vertex
+    def __init__(self, start_vertex, end_vertex):
+        self.start_vertex = start_vertex
+        self.end_vertex = end_vertex
 
+        self.is_black = False
+
+        self.linked_list_node = None
+
+    # Is the edge blacken?
     def isBlack(self):
-        pass
+        return self.is_black
 
+    # blacken the edge
     def blacken(self):
-        pass
+        self.is_black = True
 
+    # whiten the edge
     def whiten(self):
-        pass
+        self.is_black = False 
 
 class Vertex():
     def __init__(self):
