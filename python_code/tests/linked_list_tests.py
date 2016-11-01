@@ -116,6 +116,27 @@ class TestingLinkedList(unittest.TestCase):
     def test_deletes(self):
         linked_list = LinkedList()
 
+        linked_list.emplaceBack(DummyClass(0))
+        linked_list.deleteAt(0);
+
+        self.assertEquals(linked_list.head, None, "After deleting the only element in the list, the head is not None")
+        self.assertEquals(linked_list.tail, None, "After deleting the only element in the list, the tail is not None")
+
+        nodes = [Node(DummyClass(i)) for i in range(25)];
+        for node in nodes:
+            linked_list.pushBack(node);
+
+        linked_list.deleteAt(0);
+        self.assertEquals(len(linked_list), 24, "The size didn't change after the delete")
+        self.assertEquals(linked_list.head, nodes[1], "After deleting first node, the second node did not become head")
+
+        linked_list.deleteNode(nodes[-1])
+        self.assertEquals(linked_list.tail, nodes[23], "After deleting last node, the second to last did not become head")
+
+        linked_list.deleteAt(14);
+        self.assertEquals(linked_list.head, nodes[1], "After deleting the element in the middle, the head changed")
+        self.assertEquals(linked_list.tail, nodes[23], "After deleting the element in the middle, the tail changed")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -113,11 +113,11 @@ class LinkedList:
                 self.insertAfterNode(node, self.nodeAt(pos-1))
 
     # deletes element at posisiton pos
-    def deleteAtPos(self, pos):
-        self.delete(self.nodeAt(pos))
+    def deleteAt(self, pos):
+        self.deleteNode(self.nodeAt(pos))
 
     # delete element
-    def delete(self, node):
+    def deleteNode(self, node):
         if (node is None):
             return
 
@@ -131,9 +131,9 @@ class LinkedList:
         node.prev = None
         node.next = None
 
-        size -= 1
+        self.size -= 1
 
-        if (size == 0):
+        if (self.size == 0):
             self.head = None
             self.tail = None
 
