@@ -10,6 +10,7 @@ class DummyClass():
         self.linked_list_node = None
         self.data = data
 
+
 class TestingLinkedListNode(unittest.TestCase):
     # Testing the state of linked list node after initialization
     def test_init(self):
@@ -49,8 +50,8 @@ class TestingLinkedList(unittest.TestCase):
         self.assertEquals(linked_list.tail, node, "The last node is not the tail")
         self.assertEquals(len(linked_list), 2, "Linked list with 2 element has size " + str(len(linked_list)))
     
-    # Testing how the iter function behaves
-    def test_iter(self):
+    # Testing how the iter and nodeAT functions behave
+    def test_iter_nodeAt(self):
         linked_list = LinkedList()
 
         nodes = [Node(DummyClass(i)) for i in range(25)];
@@ -60,9 +61,20 @@ class TestingLinkedList(unittest.TestCase):
         index = 0 
         for node in linked_list.iter():
             self.assertEquals(node, nodes[index], "The iter gives wrong order. Expected " + str(nodes[index]) + ", got " + str(node))
+            self.assertEquals(linked_list.nodeAt(index), nodes[index], "The node at gives wrong order")
             index += 1
 
         self.assertEquals(index, 25, "The iter only returned " + str(index) + "values, while the list has 25.")
+        self.assertEquals(linked_list.head, nodes[0], "The first node is not the head of the list")
+        self.assertEquals(linked_list.tail, nodes[-1], "The last node is not the tail of the list")
+
+    def test_inserts(self):
+        pass
+
+    def test_deletes(self):
+        pass
+
+
 
 if __name__ == "__main__":
     unittest.main()
