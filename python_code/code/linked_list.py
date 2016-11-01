@@ -103,14 +103,14 @@ class LinkedList:
             self.head = new_node
 
     # insert element at the position pos
-    def insertAtPos(self, node, pos):
+    def insertAt(self, node, pos):
         if (self.empty()):
             self.init(node)
         else:
             if (pos <= 0):
-                self.insertBeforeNode(self, node, self.head)
+                self.insertBeforeNode(node, self.head)
             else:
-                self.insertAfterNode(self, node, self.nodeAt(pos-1))
+                self.insertAfterNode(node, self.nodeAt(pos-1))
 
     # deletes element at posisiton pos
     def deleteAtPos(self, pos):

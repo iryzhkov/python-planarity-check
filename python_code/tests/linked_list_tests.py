@@ -5,10 +5,14 @@ from ..code import linked_list
 Node = linked_list.Node
 LinkedList = linked_list.LinkedList
 
+
 class DummyClass():
     def __init__(self, data):
         self.linked_list_node = None
         self.data = data
+
+    def __str__(self):
+        return str(self.data)
 
 
 class TestingLinkedListNode(unittest.TestCase):
@@ -21,6 +25,7 @@ class TestingLinkedListNode(unittest.TestCase):
         node = Node(DummyClass("String"))
         self.assertEquals(node.data.data, "String", "node.data is different from initialization value")
         self.assertEquals(node.data.linked_list_node, node, "node didn't update the node attribute of the data")
+
 
 class TestingLinkedList(unittest.TestCase):
     # Testing the state of linked list after initialization
@@ -69,11 +74,47 @@ class TestingLinkedList(unittest.TestCase):
         self.assertEquals(linked_list.tail, nodes[-1], "The last node is not the tail of the list")
 
     def test_inserts(self):
-        pass
+        linked_list = LinkedList()
+
+        nodes = [Node(DummyClass(i)) for i in range(25)];
+        for node in nodes:
+            linked_list.pushBack(node);
+
+        node = Node(DummyClass(123))
+        linked_list.insertAfterNode(node, linked_list.head)
+
+        self.assertNotEquals(linked_list.head, node, "The second element became the head")
+        self.assertNotEquals(linked_list.tail, node, "The second element became the tail")
+        self.assertEquals(linked_list.nodeAt(1), node, "The inserting element after head did not make it second")
+
+        node = Node(DummyClass(321))
+        linked_list.insertBeforeNode(node, linked_list.head)
+
+        self.assertEquals(linked_list.head, node, "The first element did not become the head")
+        self.assertNotEquals(linked_list.tail, node, "The second element became the tail")
+        self.assertEquals(linked_list.nodeAt(0), node, "The inserting element before head did not make it first")
+
+        node = Node(DummyClass(1234))
+        linked_list.insertAfterNode(node, linked_list.tail)
+
+        self.assertNotEquals(linked_list.head, node, "The last element became the head")
+        self.assertEquals(linked_list.tail, node, "The last element did not become the tail")
+        self.assertEquals(linked_list.nodeAt(27), node, "The inserting element after tail did not make it last")
+
+        node = Node(DummyClass(4321))
+        linked_list.insertBeforeNode(node, linked_list.tail)
+
+        self.assertNotEquals(linked_list.head, node, "The almost last element became the head")
+        self.assertNotEquals(linked_list.tail, node, "The almost last element became the tail")
+        self.assertEquals(linked_list.nodeAt(27), node, "The inserting element before tail did not make it second to last")
+
+        nodes = [Node(DummyClass(23*i)) for i in range(23)]
+        for i in range(len(nodes)):
+            linked_list.insertAt(nodes[i], 3+i)
+            self.assertEquals(nodes[i], linked_list.nodeAt(3+i), "The insertAt doesn't allign with nodeAt")
 
     def test_deletes(self):
-        pass
-
+        linked_list = LinkedList()
 
 
 if __name__ == "__main__":
