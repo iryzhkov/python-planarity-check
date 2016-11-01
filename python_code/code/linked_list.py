@@ -33,11 +33,14 @@ class LinkedList:
 
     # A string representation of the list
     def __str__(self):
-        result = "["
+        result = ""
         for node in self.iter():
             result += str(node) + ", "
-        result += "]"
-        return result
+        return "[" + result + "]"
+
+    # returns true if the list is empty, false otherwise
+    def empty(self):
+        return self.size == 0;
 
     # initialize the list with one element
     def init(self, node):
@@ -48,31 +51,15 @@ class LinkedList:
         node.next = node;
         node.prev = node;
 
-    # returns true if the list is empty, false otherwise
-    def empty(self):
-        return self.size == 0;
-
-    # insert element to the back of the ilst
-    def pushBack(self, node):
-        if (self.empty()):
-            self.init(node);
-        else:
-            self.tail.next = node
-            node.prev = self.tail
-            self.head.prev = node
-            node.next = self.head
-            self.tail = node
-            self.size += 1
-
     # Return node at position pos
-    def node_at(self, pos):
+    def nodeAt(self, pos):
         if (self.empty()):
             return None
 
-        if (pos > self.size):
-            pos = self.size - 1
-        elif (pos < 0):
-            pos = 0
+        if (pos >= self.size):
+            return self.tail
+        elif (pos <= 0):
+            return self.head
 
         node = self.head    
         for i in range(pos):
@@ -80,40 +67,72 @@ class LinkedList:
 
         return node
 
+    # insert element to the back of the ilst
+    def pushBack(self, node):
+        if (self.empty()):
+            self.init(node)
+        else:
+            self.insertAfterNode(node, self.tail) 
+
     # insert element after a specific element
     def insertAfterNode(self, new_node, old_node):
-        pass
+        self.size += 1
+        new_node.next = old_node.next
+        old_node.next.prev = new_node
+
+        new_node.prev = old_node
+        old_node.next = new_node
+
+        if (self.tail == old_node):
+            self.tail = new_node
 
     # insert element before a specific element
     def insertBeforeNode(self, new_node, old_node):
-        pass
+        self.size += 1
+        new_node.prev = old_node.prev
+        old_node.prev.next = new_node
+
+        new_node.next = old_node
+        old_node.prev = new_node
+
+        if (self.head == old_node):
+            self.head = new_node
 
     # insert element at the position pos
     def insertAtPos(self, node, pos):
-        pass
+        if (self.empty()):
+            self.init(node)
+        else:
+            if (pos <= 0):
+                self.insertBeforeNode(self, node, self.head)
+            else:
+                self.insertAfterNode(self, node, self.nodeAt(pos-1))
 
     # deletes element at posisiton pos
     def deleteAtPos(self, pos):
-        self.delete(self.node_at(pos))
+        self.delete(self.nodeAt(pos))
 
     # delete element
     def delete(self, node):
         if (node is None):
             return
 
-        if (self.size == 1):
-            self.clear();
-        else:
-            node.prev.next = node.next
-            node.next.prev = node.prev
-            if (node == self.tail):
-                self.tail = node.prev
-            if (node == self.head):
-                self.head = node.next
+        node.prev.next = node.next
+        node.next.prev = node.prev
+        if (node == self.tail):
+            self.tail = node.prev
+        if (node == self.head):
+            self.head = node.next
+
+        node.prev = None
+        node.next = None
+
+        size -= 1
 
     # delete all the elements from the list
     def clear(self):
-        self.size = 0
+        for i in range(self.size):
+            self.delete(self.head)
+
         self.head = None
         self.tail = None
-        pass
