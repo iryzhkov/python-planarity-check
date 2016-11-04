@@ -10,8 +10,18 @@ class Edge():
         self.end_vertex = end_vertex
 
         self.is_black = False
-
         self.linked_list_node = None
+
+        self.inverse_edge = None
+
+    # The string of the edge is (A -> B)
+    def __str__(self):
+        return str(self.start_vertex) + " -> " + str(self.end_vertex)
+
+    # couple two inverse edges (e.g. a -> b and b -> a)
+    def coubple(self, other_edge):
+        self.inverse_edge = other_edge
+        other_edge.inverse_edge = self
 
     # Is the edge blacken?
     def isBlack(self):
@@ -25,19 +35,63 @@ class Edge():
     def whiten(self):
         self.is_black = False 
 
+
 class Vertex():
-    def __init__(self):
+    # Initialization of the vertex
+    def __init__(self, identification):
+        self.identification = identification
+
+        self.edges = LinkedList()
+        self.dirty_edges = LinkedList()
+
+        self.dfs_discovery_time = -1
+        self.dfs_finishing_time = -1
+
+    def __eq__(self, other_vertex):
+        return other_vertex.identificaiton == self.identification
+
+    def __str__(self):
+        return "V[" + str(self.identification) + "] edges: " + \
+               str(self.edges) + ", dirty edges: " + str(self.dirtyEdges)   
+
+    def __len__(self):
+        return len(self.edges) + len(self.dirtyEdges) 
+
+    def neighbours(self):
+        self.edges.iter()
+        self.dirty_edges.iter()
+        
+    def isNeighbour(self, other_vertex):
         pass
 
-    def addEdge(self):
-        pass
+    def addEdge(self, edge):
+        if (edge.isBlack()):
+            self.dirty_edges.emplaceBack(edge)
+        else:
+            self.edges.emplaceBack(edge)
 
+    
 class Graph():
+    # Init graph with 0 vertices
     def __init__(self):
-        pass
+        self.vertices = {}
+        self.edge_count = 0
 
-    def addVertex(self):
-        pass
+    # Add vertex to the graph if its id is not taken 
+    def addVertex(self, vertex_id):
+        if (vertex_id not in self.vertices):
+            self.vertices[vertex_id] = Vertex(vertex_id)
+    
+    # Add the edge between two vertices. Add vertices to the graph, if they are not there
+    def addEdgeBetween(self, vertex_id_a, vertex_id_b):
+        edge_1 = Edge(vertex_id_a, vertex_id_b)
+        edge_2 = Edge(vertex_id_b, vertex_id_a)
+        edge_1.couple(edge_2)
 
-    def addEdge(self):
-        pass
+        # make sure that both vertices are in the graph
+        self.addVertex(vertex_id_a)
+        self.addVertex(vertex_id_b)
+
+        self.vertices[vertex_id_a].addEdge(edge_1)
+        self.vertices[vertex_id_b].addEdge(edge_2)
+        self.edge_count += 1
