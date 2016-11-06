@@ -19,7 +19,7 @@ class Edge():
         return str(self.start_vertex) + " -> " + str(self.end_vertex)
 
     # couple two inverse edges (e.g. a -> b and b -> a)
-    def coubple(self, other_edge):
+    def couple(self, other_edge):
         self.inverse_edge = other_edge
         other_edge.inverse_edge = self
 
