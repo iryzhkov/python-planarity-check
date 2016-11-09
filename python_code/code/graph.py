@@ -91,6 +91,10 @@ class Graph():
         self.vertices = {}
         self.edge_count = 0
 
+    # Return the number of vertices
+    def __len__(self):
+        return len(self.vertices)
+
     # Add vertex to the graph if its id is not taken 
     def addVertex(self, vertex_id):
         if (vertex_id not in self.vertices):

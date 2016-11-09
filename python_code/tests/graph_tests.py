@@ -75,10 +75,16 @@ class TestingVertex(unittest.TestCase):
 
 class TestingGraph(unittest.TestCase):
     def test_init(self):
-        pass
+        graph = Graph() 
+        self.assertEquals(len(graph), 0)
 
     def test_adding_verticies(self):
-        pass
+        graph = Graph()
+
+        graph.addVertex(0)
+        self.assertEquals(len(graph), 1)
+        graph.addVertex(1)
+        self.assertEquals(len(graph), 2)
 
 
 if __name__ == "__main__":
