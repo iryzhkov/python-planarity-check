@@ -62,12 +62,22 @@ class Vertex():
 
     # Gives a list of neighbours: for v in vertex.neighbours()
     def neighbours(self):
-        self.edges.iter()
-        #self.dirty_edges.iter()
-        
-    def isNeighbour(self, other_vertex):
-        pass
+        for node in self.edges.iter():
+            yield node.data.end_vertex 
 
+    # Gives a list of edges
+    def edges(self):
+        for node in self.edges.iter():
+            yield node.data
+        
+    # Checks if the other vertex is neighbour of this vertex 
+    def isNeighbour(self, other_vertex):
+        for vertex_id in self.neighbours():
+            if (vertex_id == other_vertex.identification):
+                return True
+        return False
+
+    # Add edge to the vertex
     def addEdge(self, edge):
         if (edge.isBlack()):
             self.dirty_edges.emplaceBack(edge)

@@ -58,8 +58,20 @@ class TestingVertex(unittest.TestCase):
 
     # Test how vertecies which are neighbours behave
     def test_neighbours(self):
-        pass
+        vertex_a = Vertex(1)
+        vertex_b = Vertex(2)
 
+        edge_a = Edge(1,2)
+        edge_b = Edge(2,1)
+
+        self.assertFalse(vertex_a.isNeighbour(vertex_b))
+        self.assertFalse(vertex_b.isNeighbour(vertex_a))
+
+        vertex_a.addEdge(edge_a)
+        vertex_b.addEdge(edge_b)
+
+        self.assertTrue(vertex_a.isNeighbour(vertex_b))
+        self.assertTrue(vertex_b.isNeighbour(vertex_a))
 
 class TestingGraph(unittest.TestCase):
     def test_init(self):
