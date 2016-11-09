@@ -47,19 +47,23 @@ class Vertex():
         self.dfs_discovery_time = -1
         self.dfs_finishing_time = -1
 
+    # Compare to the other vertex
     def __eq__(self, other_vertex):
         return other_vertex.identificaiton == self.identification
 
+    # Make a string out of vertex
     def __str__(self):
         return "V[" + str(self.identification) + "] edges: " + \
                str(self.edges) + ", dirty edges: " + str(self.dirtyEdges)   
 
+    # The size of the vertex is the number of edges
     def __len__(self):
-        return len(self.edges) + len(self.dirtyEdges) 
+        return len(self.edges) + len(self.dirty_edges) 
 
+    # Gives a list of neighbours: for v in vertex.neighbours()
     def neighbours(self):
         self.edges.iter()
-        self.dirty_edges.iter()
+        #self.dirty_edges.iter()
         
     def isNeighbour(self, other_vertex):
         pass

@@ -28,9 +28,9 @@ class TestingEdge(unittest.TestCase):
         self.assertEquals(edge_a.inverse_edge, edge_b)
         self.assertEquals(edge_b.inverse_edge, edge_a)
 
+    # Test how blacken, whiten and isBlack behave
     def test_white_and_black(self):
         edge = Edge(1,2)
-
         self.assertFalse(edge.isBlack())
         edge.blacken()
         self.assertTrue(edge.isBlack())
@@ -39,12 +39,35 @@ class TestingEdge(unittest.TestCase):
 
 
 class TestingVertex(unittest.TestCase):
+    # Test whether the new vertex has all the right properties
     def test_init(self):
+        vertex = Vertex(1)
+        self.assertEquals(len(vertex), 0)
+
+    # Test how adding edges affect the vertex
+    def test_edges(self):
+        vertex = Vertex(1)
+
+        edge_a = Edge(1,2)
+        vertex.addEdge(edge_a)
+        self.assertEquals(len(vertex), 1)
+
+        edge_b = Edge(1,3)
+        vertex.addEdge(edge_b)
+        self.assertEquals(len(vertex), 2)
+
+    # Test how vertecies which are neighbours behave
+    def test_neighbours(self):
         pass
+
 
 class TestingGraph(unittest.TestCase):
     def test_init(self):
         pass
+
+    def test_adding_verticies(self):
+        pass
+
 
 if __name__ == "__main__":
     unittest.main()
