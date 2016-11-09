@@ -119,8 +119,8 @@ class TestingLinkedList(unittest.TestCase):
         linked_list.emplaceBack(DummyClass(0))
         linked_list.deleteAt(0);
 
-        self.assertEquals(linked_list.head, None, "After deleting the only element in the list, the head is not None")
-        self.assertEquals(linked_list.tail, None, "After deleting the only element in the list, the tail is not None")
+        self.assertIsNone(linked_list.head, "After deleting the only element in the list, the head is not None")
+        self.assertIsNone(linked_list.tail, "After deleting the only element in the list, the tail is not None")
 
         nodes = [Node(DummyClass(i)) for i in range(25)];
         for node in nodes:
