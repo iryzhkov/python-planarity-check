@@ -21,6 +21,14 @@ class LinkedList:
     def __len__(self):
         return self.size;
 
+    # 'in' operator. Compares item to the data in the node
+    def __contains__(self, item):
+        for node in self.iter():
+            if (node.data == item):
+                return True
+
+        return False
+
     # iterator over linked list
     # used for the for loops (e.g. for node in nodes.iter())
     def iter(self):
@@ -141,3 +149,10 @@ class LinkedList:
     def clear(self):
         for i in range(self.size):
             self.delete(self.head)
+
+    # make a node new_head a new haed of the list.
+    # new head has to be in the linked list
+    def makeHead(self, new_head):
+        if (self.size > 0):
+            self.head = new_head
+            self.tail = new_head.prev

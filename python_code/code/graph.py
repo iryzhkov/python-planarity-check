@@ -5,18 +5,23 @@ LinkedList = linked_list.LinkedList
 
 class Edge():
     # Create a new edge from start_vertex to end_vertex
-    def __init__(self, start_vertex, end_vertex):
+    def __init__(self, start_vertex, end_vertex, is_black=False):
         self.start_vertex = start_vertex
         self.end_vertex = end_vertex
-
-        self.is_black = False
-        self.linked_list_node = None
-
         self.inverse_edge = None
+
+        self.is_black = is_black 
+        self.originally_black = is_black
+
+        self.linked_list_node = None
 
     # The string of the edge is (A -> B)
     def __str__(self):
         return str(self.start_vertex) + " -> " + str(self.end_vertex)
+
+    # Equality if the start and end vertex are the same
+    def __eq__(self, other_edge):
+        return self.start_vertex == other_edge.start_vertex and self.end_vertex == other_edge.end_vertex
 
     # couple two inverse edges (e.g. a -> b and b -> a)
     def couple(self, other_edge):
@@ -53,12 +58,12 @@ class Vertex():
 
     # Make a string out of vertex
     def __str__(self):
-        return "V[" + str(self.identification) + "] edges: " + \
-               str(self.edges) + ", dirty edges: " + str(self.dirtyEdges)   
+        return ("V[" + str(self.identification) + "] edges: " +
+               str(self.edges) + ", dirty edges: " + str(self.dirty_edges))   
 
     # The size of the vertex is the number of edges
     def __len__(self):
-        return len(self.edges) + len(self.dirty_edges) 
+        return len(self.edges)
 
     # Gives a list of neighbours: for v in vertex.neighbours()
     def neighbours(self):
@@ -94,6 +99,13 @@ class Graph():
     # Return the number of vertices
     def __len__(self):
         return len(self.vertices)
+
+    # The representation of the graph
+    def __str__(self):
+        result = "Graph:\n"
+        for vertex in self.vertices:
+            result += str(self.vertices[vertex]) + "\n"
+        return result
 
     # Add vertex to the graph if its id is not taken 
     def addVertex(self, vertex_id):
