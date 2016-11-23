@@ -19,10 +19,6 @@ def isOuterplannarAux(graph, vs_with_deg_le_two):
     if len(vs_with_deg_le_two) == 0:
         return False
 
-    print "\nIn the aux" 
-    print graph
-    print "Vertices in the list: " + str(vs_with_deg_le_two)
-
     # pick the last element, remove it from the list
     curr_vertex = vs_with_deg_le_two.pop() 
 
@@ -35,8 +31,6 @@ def isOuterplannarAux(graph, vs_with_deg_le_two):
     if len(graph.vertices[curr_vertex].edges) > 2 and len(vs_with_deg_le_two) == 0:
         return False
 
-    print "Selected vertex " + str(curr_vertex) + " to be deleted"
-
     # Perform a two reduction, and remember data needed for restoration.
     restore_data = twoReduction(graph, curr_vertex, vs_with_deg_le_two)
 
@@ -47,11 +41,8 @@ def isOuterplannarAux(graph, vs_with_deg_le_two):
     if not isOuterplannarAux(graph, vs_with_deg_le_two):
         return False
 
-    print "Performing restoration on the vertex " + str(curr_vertex)
     # In case of success, perform graph restoration, to printout the cyclic order
     success = twoReductionRestoration(graph, restore_data, curr_vertex)
-
-    print graph
     return success 
 
 # Perform a two reduction
@@ -243,8 +234,8 @@ g.addVertex(3)
 
 g.addEdgeBetween(0,1)
 g.addEdgeBetween(0,2)
-#g.addEdgeBetween(1,2)
-#g.addEdgeBetween(0,2)
+g.addEdgeBetween(1,2)
+g.addEdgeBetween(0,3)
 g.addEdgeBetween(3,2)
 g.addEdgeBetween(3,1)
 
